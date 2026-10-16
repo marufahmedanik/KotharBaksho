@@ -52,8 +52,13 @@ public class splash extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists() && snapshot.child("userName").getValue() != null
                             && !TextUtils.isEmpty(snapshot.child("userName").getValue(String.class))) {
-                        // Profile completed
-                        startActivity(new Intent(splash.this, MainActivity.class));
+                        String phone = snapshot.child("phoneNumber").getValue(String.class);
+                        if (TextUtils.isEmpty(phone) && (currentUser.getPhoneNumber() == null || currentUser.getPhoneNumber().isEmpty())) {
+                            // User registered with email but needs to add phone number
+                            startActivity(new Intent(splash.this, ProfileSetupActivity.class));
+                        } else {
+                            startActivity(new Intent(splash.this, MainActivity.class));
+                        }
                     } else {
                         // User verified phone but hasn't completed profile name
                         startActivity(new Intent(splash.this, ProfileSetupActivity.class));

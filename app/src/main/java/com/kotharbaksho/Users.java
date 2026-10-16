@@ -1,9 +1,9 @@
 package com.kotharbaksho;
 
 public class Users {
-    String profilepic,mail,userName,password,userId,lastMessage,status,onlineStatus;
+    String profilepic, mail, userName, password, userId, lastMessage, status, onlineStatus, phoneNumber;
 
-    public  Users(){}
+    public Users() {}
 
     public Users(String userId, String userName, String maill, String password, String profilepic, String status) {
         this.userId = userId;
@@ -13,6 +13,26 @@ public class Users {
         this.profilepic = profilepic;
         this.status = status;
         this.onlineStatus = "Offline";
+        this.phoneNumber = "";
+    }
+
+    public Users(String userId, String userName, String mail, String password, String profilepic, String status, String phoneNumber) {
+        this.userId = userId;
+        this.userName = userName;
+        this.mail = mail;
+        this.password = password;
+        this.profilepic = profilepic;
+        this.status = status;
+        this.onlineStatus = "Offline";
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber != null ? phoneNumber : "";
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getOnlineStatus() {

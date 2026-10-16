@@ -30,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class registration extends AppCompatActivity {
     private TextView loginbut;
-    private EditText rg_username, rg_email, rg_password, rg_repassword;
+    private EditText rg_username, rg_email, rg_phone, rg_password, rg_repassword;
     private Button rg_signup;
     private ProgressBar progressBar;
     private CircleImageView rg_profileImg;
@@ -40,6 +40,7 @@ public class registration extends AppCompatActivity {
     private Uri imageURI;
     private final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private static final int PICK_IMAGE_REQUEST = 10;
+    private static final String DEFAULT_AVATAR_URL = "https://firebasestorage.googleapis.com/v0/b/marufsapp.appspot.com/o/man.png?alt=media&token=e3649ae1-b755-4c07-b27b-fb3a75ea9c46";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class registration extends AppCompatActivity {
         loginbut = findViewById(R.id.loginbut);
         rg_username = findViewById(R.id.rgusername);
         rg_email = findViewById(R.id.rgemail);
+        rg_phone = findViewById(R.id.rgphone);
         rg_password = findViewById(R.id.rgpassword);
         rg_repassword = findViewById(R.id.rgrepassword);
         rg_profileImg = findViewById(R.id.profilerg0);
@@ -81,6 +83,7 @@ public class registration extends AppCompatActivity {
             public void onClick(View v) {
                 String name = rg_username.getText().toString().trim();
                 String email = rg_email.getText().toString().trim();
+                String phone = rg_phone.getText().toString().trim();
                 String password = rg_password.getText().toString().trim();
                 String cPassword = rg_repassword.getText().toString().trim();
 
@@ -93,31 +96,47 @@ public class registration extends AppCompatActivity {
                 } else if (!email.matches(emailPattern)) {
                     rg_email.setError("Please enter a valid email");
                     rg_email.requestFocus();
-                } else if (TextUtils.isEmpty(password) || password.length() < 6) {
-                    rg_password.setError("Password must be at least 6 characters");
-                    rg_password.requestFocus();
-                } else if (!password.equals(cPassword)) {
-                    rg_repassword.setError("Passwords do not match");
-                    rg_repassword.requestFocus();
+                } else if (TextUtils.isEmpty(phone)) {
+                    rg_phone.setError("Please add your phone number");
+                    rg_phone.requestFocus();
                 } else {
-                    setLoading(true);
-                    registerUser(name, email, password);
+                    String cleanPhone = phone.replaceAll("[\\s\\-\\(\\)]", "");
+                    if (cleanPhone.startsWith("0")) {
+                        cleanPhone = cleanPhone.substring(1);
+                    }
+                    if (cleanPhone.length() < 7) {
+                        rg_phone.setError("Please enter a valid phone number");
+                        rg_phone.requestFocus();
+                        return;
+                    }
+                    final String fullPhoneNumber = "+880" + cleanPhone;
+
+                    if (TextUtils.isEmpty(password) || password.length() < 6) {
+                        rg_password.setError("Password must be at least 6 characters");
+                        rg_password.requestFocus();
+                    } else if (!password.equals(cPassword)) {
+                        rg_repassword.setError("Passwords do not match");
+                        rg_repassword.requestFocus();
+                    } else {
+                        setLoading(true);
+                        registerUser(name, email, fullPhoneNumber, password);
+                    }
                 }
             }
         });
     }
 
-    private void registerUser(String name, String email, String password) {
+    private void registerUser(String name, String email, String phone, String password) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful() && task.getResult() != null && task.getResult().getUser() != null) {
                     String uid = task.getResult().getUser().getUid();
                     DatabaseReference userRef = database.getReference().child("user").child(uid);
-                    String defaultStatus = "কথার বাক্সে যুক্ত হলাম!";
+                    String defaultStatus = "Hey there! I am using KotharBaksho";
 
                     if (imageURI != null) {
-                        StorageReference storageRef = storage.getReference().child("Upload").child(uid);
+                        StorageReference storageRef = storage.getReference().child("upload").child(uid);
                         storageRef.putFile(imageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> uploadTask) {
@@ -125,16 +144,16 @@ public class registration extends AppCompatActivity {
                                     storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
-                                            saveUserToDatabase(userRef, uid, name, email, uri.toString(), defaultStatus);
+                                            saveUserToDatabase(userRef, uid, name, email, phone, uri.toString(), defaultStatus);
                                         }
-                                    });
+                                    }).addOnFailureListener(e -> saveUserToDatabase(userRef, uid, name, email, phone, DEFAULT_AVATAR_URL, defaultStatus));
                                 } else {
-                                    saveUserToDatabase(userRef, uid, name, email, "", defaultStatus);
+                                    saveUserToDatabase(userRef, uid, name, email, phone, DEFAULT_AVATAR_URL, defaultStatus);
                                 }
                             }
                         });
                     } else {
-                        saveUserToDatabase(userRef, uid, name, email, "", defaultStatus);
+                        saveUserToDatabase(userRef, uid, name, email, phone, DEFAULT_AVATAR_URL, defaultStatus);
                     }
                 } else {
                     setLoading(false);
@@ -145,8 +164,8 @@ public class registration extends AppCompatActivity {
         });
     }
 
-    private void saveUserToDatabase(DatabaseReference userRef, String uid, String name, String email, String profilePic, String status) {
-        Users newUser = new Users(uid, name, email, "", profilePic, status);
+    private void saveUserToDatabase(DatabaseReference userRef, String uid, String name, String email, String phone, String profilePic, String status) {
+        Users newUser = new Users(uid, name, email, "", profilePic, status, phone);
         newUser.setOnlineStatus("Online");
 
         userRef.setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {

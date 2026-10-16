@@ -152,15 +152,6 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="Carrier SMS charges may apply."
-                    android:textColor="@color/text_hint"
-                    android:textSize="11sp" />
-
                 <!-- Action Button -->
                 <FrameLayout
                     android:layout_width="match_parent"

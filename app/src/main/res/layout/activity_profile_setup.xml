@@ -139,6 +139,101 @@
                     android:textColorHint="@color/text_hint"
                     android:textSize="15sp" />
 
+                <!-- Phone Number Field (Only shown if missing from email registration) -->
+                <LinearLayout
+                    android:id="@+id/phoneSetupContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:letterSpacing="0.05"
+                        android:text="PHONE NUMBER"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/bg_country_box"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🇧🇩"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/poppins_bold"
+                                android:text="+880"
+                                android:textColor="@color/primary"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/etSetupPhone"
+                            android:layout_width="0dp"
+                            android:layout_height="52dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_input_field"
+                            android:fontFamily="@font/poppins_regular"
+                            android:hint="01712-345678"
+                            android:inputType="phone"
+                            android:maxLength="15"
+                            android:paddingHorizontal="16dp"
+                            android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Email (Optional) Field -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:letterSpacing="0.05"
+                    android:text="EMAIL (OPTIONAL)"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/etSetupEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_input_field"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="name@example.com (optional)"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="50"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint"
+                    android:textSize="14sp" />
+
                 <!-- About / Status Field -->
                 <TextView
                     android:layout_width="wrap_content"

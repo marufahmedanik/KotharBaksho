@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class EmailLoginActivity extends AppCompatActivity {
 
@@ -24,6 +30,7 @@ public class EmailLoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private AppCompatButton btnEmailSignIn;
     private ProgressBar emailProgress;
+    private TextView tvEmailSignUp;
     private FirebaseAuth auth;
     private final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -39,8 +46,18 @@ public class EmailLoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnEmailSignIn = findViewById(R.id.btnEmailSignIn);
         emailProgress = findViewById(R.id.emailProgress);
+        tvEmailSignUp = findViewById(R.id.tvEmailSignUp);
 
         btnBackEmail.setOnClickListener(v -> finish());
+
+        if (tvEmailSignUp != null) {
+            tvEmailSignUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(EmailLoginActivity.this, registration.class));
+                }
+            });
+        }
 
         btnEmailSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,11 +80,8 @@ public class EmailLoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             setLoading(false);
-                            if (task.isSuccessful()) {
-                                Intent intent = new Intent(EmailLoginActivity.this, MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
+                            if (task.isSuccessful() && auth.getCurrentUser() != null) {
+                                checkPhoneNumberAndProceed();
                             } else {
                                 String error = task.getException() != null ? task.getException().getMessage() : "Authentication failed";
                                 Toast.makeText(EmailLoginActivity.this, error, Toast.LENGTH_LONG).show();
@@ -75,6 +89,44 @@ public class EmailLoginActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+    }
+
+    private void checkPhoneNumberAndProceed() {
+        String uid = auth.getCurrentUser().getUid();
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String phone = snapshot.child("phoneNumber").getValue(String.class);
+                    if (TextUtils.isEmpty(phone)) {
+                        // Email user who hasn't added phone number yet -> prompt to add number
+                        Intent intent = new Intent(EmailLoginActivity.this, ProfileSetupActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(EmailLoginActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                } else {
+                    Intent intent = new Intent(EmailLoginActivity.this, ProfileSetupActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Intent intent = new Intent(EmailLoginActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
             }
         });
     }

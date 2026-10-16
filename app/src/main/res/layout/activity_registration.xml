@@ -131,6 +131,67 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/poppins_bold"
+                android:text="PHONE NUMBER"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:letterSpacing="0.05" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="88dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_country_box"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🇧🇩"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/rgcountrycode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="+880"
+                        android:textColor="@color/primary"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/rgphone"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input_field"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="01712-345678"
+                    android:inputType="phone"
+                    android:maxLength="15"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/poppins_bold"
                 android:text="PASSWORD"
                 android:textColor="@color/text_secondary"
                 android:textSize="11sp"
