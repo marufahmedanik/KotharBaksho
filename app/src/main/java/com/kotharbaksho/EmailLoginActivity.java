@@ -30,7 +30,7 @@ public class EmailLoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private AppCompatButton btnEmailSignIn;
     private ProgressBar emailProgress;
-    private TextView tvEmailSignUp;
+    private TextView tvEmailSignUp, tvPhoneLogin, tvForgotPassword;
     private FirebaseAuth auth;
     private final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -47,14 +47,47 @@ public class EmailLoginActivity extends AppCompatActivity {
         btnEmailSignIn = findViewById(R.id.btnEmailSignIn);
         emailProgress = findViewById(R.id.emailProgress);
         tvEmailSignUp = findViewById(R.id.tvEmailSignUp);
+        tvPhoneLogin = findViewById(R.id.tvPhoneLogin);
+        tvForgotPassword = findViewById(R.id.tvForgotPassword);
 
         btnBackEmail.setOnClickListener(v -> finish());
+
+        if (tvPhoneLogin != null) {
+            tvPhoneLogin.setOnClickListener(v -> finish());
+        }
 
         if (tvEmailSignUp != null) {
             tvEmailSignUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(EmailLoginActivity.this, registration.class));
+                }
+            });
+        }
+
+        if (tvForgotPassword != null) {
+            tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String emailStr = etEmail.getText().toString().trim();
+                    if (TextUtils.isEmpty(emailStr) || !emailStr.matches(emailPattern)) {
+                        etEmail.setError("Enter your email to reset password");
+                        etEmail.requestFocus();
+                    } else {
+                        setLoading(true);
+                        auth.sendPasswordResetEmail(emailStr).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                setLoading(false);
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(EmailLoginActivity.this, "Password reset link sent to your email!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    String msg = task.getException() != null ? task.getException().getMessage() : "Failed to send reset link";
+                                    Toast.makeText(EmailLoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
                 }
             });
         }

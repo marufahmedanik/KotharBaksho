@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_main"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".EmailLoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,6 +14,7 @@
         android:paddingHorizontal="20dp"
         android:paddingVertical="20dp">
 
+        <!-- Top Navigation Bar -->
         <ImageView
             android:id="@+id/btnBackEmail"
             android:layout_width="40dp"
@@ -24,11 +26,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/primary" />
 
+        <!-- Brand Header (Matching Phone Screen Logo Card) -->
         <LinearLayout
             android:id="@+id/emailHeader"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,10 +39,10 @@
             app:layout_constraintTop_toBottomOf="@id/btnBackEmail">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="3dp">
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -51,28 +54,29 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Sign In with Email"
+                android:text="@string/app_name_english"
                 android:textColor="@color/primary"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Use your existing account"
+                android:text="@string/tagline_english"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
         </LinearLayout>
 
+        <!-- Floating Form Card (Matching Screenshot Elevation) -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardEmailForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="22dp"
             app:cardBackgroundColor="@color/surface_card"
             app:cardCornerRadius="20dp"
             app:cardElevation="3dp"
@@ -90,10 +94,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
-                    android:letterSpacing="0.05"
-                    android:text="EMAIL"
+                    android:text="Sign in with Email"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Enter your email and password to access your conversations."
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
+
+                <!-- Email Input Field -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:letterSpacing="0.05"
+                    android:text="EMAIL ADDRESS"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp" />
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -109,15 +133,16 @@
                     android:textColorHint="@color/text_hint"
                     android:textSize="14sp" />
 
+                <!-- Password Input Field -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="14dp"
                     android:fontFamily="@font/poppins_bold"
                     android:letterSpacing="0.05"
                     android:text="PASSWORD"
                     android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
                 <EditText
                     android:id="@+id/etPassword"
@@ -133,10 +158,24 @@
                     android:textColorHint="@color/text_hint"
                     android:textSize="14sp" />
 
+                <!-- Forgot Password Action -->
+                <TextView
+                    android:id="@+id/tvForgotPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:padding="4dp"
+                    android:text="Forgot password?"
+                    android:textColor="@color/primary"
+                    android:textSize="12sp" />
+
+                <!-- Action Button -->
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:layout_marginTop="24dp">
+                    android:layout_marginTop="18dp">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnEmailSignIn"
@@ -163,32 +202,52 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!-- Bottom Links -->
         <LinearLayout
-            android:id="@+id/registerEmailLinkLayout"
+            android:id="@+id/bottomLinksLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardEmailForm">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Need an account? "
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Need an account? "
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tvEmailSignUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:padding="4dp"
+                    android:text="Sign Up with Email"
+                    android:textColor="@color/primary"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tvEmailSignUp"
+                android:id="@+id/tvPhoneLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:fontFamily="@font/poppins_bold"
                 android:padding="6dp"
-                android:text="Sign Up with Email"
+                android:text="Sign in with Phone Number"
                 android:textColor="@color/primary"
                 android:textSize="13sp" />
 
