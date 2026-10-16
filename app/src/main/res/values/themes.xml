@@ -15,7 +15,7 @@
     </style>
 
     <style name="dialoge">
-        <item name="android:windowBackground">@drawable/empty_background</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="windowActionBar">false</item>
