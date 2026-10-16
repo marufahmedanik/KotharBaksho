@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/chat_background"
+    android:background="@color/bg_main"
     tools:context=".setting">
 
     <!-- Top Emerald Header Bar -->
     <LinearLayout
         android:id="@+id/header_bar"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@color/emerald_primary"
+        android:layout_height="52dp"
+        android:background="@color/primary"
         android:elevation="4dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
+        android:paddingHorizontal="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/back_btn"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Back"
             android:padding="6dp"
@@ -34,25 +34,25 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/poppins_bold"
                 android:text="Profile &amp; Settings"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:text="@string/app_name_english"
                 android:textColor="@color/gold"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -60,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_bar">
 
@@ -69,36 +70,36 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingTop="28dp"
-            android:paddingBottom="36dp">
+            android:paddingTop="12dp"
+            android:paddingBottom="14dp">
 
             <!-- Profile Avatar with Camera Badge -->
             <FrameLayout
                 android:id="@+id/avatar_container"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="76dp"
+                android:layout_height="76dp"
                 android:clickable="true"
                 android:focusable="true">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/settingprofile"
-                    android:layout_width="114dp"
-                    android:layout_height="114dp"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
                     android:layout_gravity="center"
                     android:src="@drawable/man"
                     app:civ_border_color="@color/gold"
-                    app:civ_border_width="3dp" />
+                    app:civ_border_width="2dp" />
 
                 <!-- Camera Floating Action Badge -->
                 <ImageView
                     android:id="@+id/btn_change_photo"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:layout_gravity="bottom|end"
                     android:background="@drawable/bg_btn_gold"
                     android:contentDescription="Change Photo"
-                    android:elevation="4dp"
-                    android:padding="8dp"
+                    android:elevation="2dp"
+                    android:padding="5dp"
                     android:src="@drawable/ic_camera_vector"
                     app:tint="@color/emerald_dark" />
             </FrameLayout>
@@ -106,157 +107,145 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Tap to change avatar"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
             <!-- Profile Edit Form Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp">
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp">
 
                     <!-- Name Field -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Display Name"
-                        android:textColor="@color/emerald_primary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/poppins_bold"
+                        android:letterSpacing="0.05"
+                        android:text="DISPLAY NAME"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="10sp" />
 
                     <EditText
                         android:id="@+id/settingname"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="6dp"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/bg_input_field"
+                        android:fontFamily="@font/poppins_regular"
                         android:hint="Your full name"
-                        android:inputType="textPersonName"
-                        android:paddingHorizontal="14dp"
+                        android:inputType="textPersonName|textCapWords"
+                        android:maxLength="35"
+                        android:paddingHorizontal="12dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
 
-                    <!-- Status/Bio Field -->
+                    <!-- Status Field -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="About"
-                        android:textColor="@color/emerald_primary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:letterSpacing="0.05"
+                        android:text="ABOUT / STATUS"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="10sp" />
 
                     <EditText
                         android:id="@+id/settingstatus"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="6dp"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/bg_input_field"
-                        android:hint="Hey I am using KotharBaksho"
-                        android:inputType="text"
-                        android:paddingHorizontal="14dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="Hey there! I am using KotharBaksho"
+                        android:inputType="textCapSentences"
+                        android:paddingHorizontal="12dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
 
                     <!-- Account / Phone / Email (Read Only) -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Phone / Email"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:letterSpacing="0.05"
+                        android:text="ACCOUNT (PHONE / EMAIL)"
                         android:textColor="@color/text_secondary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textSize="10sp" />
 
                     <EditText
                         android:id="@+id/settingemail"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="6dp"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/bg_input_field"
                         android:enabled="false"
                         android:focusable="false"
+                        android:fontFamily="@font/poppins_regular"
                         android:hint="Phone / Email"
                         android:inputType="text"
-                        android:paddingHorizontal="14dp"
+                        android:paddingHorizontal="12dp"
                         android:textColor="@color/text_secondary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
+
+                    <!-- Save Action Button with Progress -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_marginTop="12dp">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/donebutt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_btn_primary"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Save Changes"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <ProgressBar
+                            android:id="@+id/save_progress"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:indeterminateTint="@color/white"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- App Branding Info Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+            <!-- Subtle App Branding Footer -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="KotharBaksho v1.0"
-                        android:textColor="@color/emerald_primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/tagline_english"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Save Progress Indicator -->
-            <ProgressBar
-                android:id="@+id/save_progress"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="20dp"
-                android:indeterminateTint="@color/emerald_primary"
-                android:visibility="gone" />
-
-            <!-- Save Button -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/donebutt"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_btn_primary"
-                android:elevation="3dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Save Changes"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="KotharBaksho v1.0 • Connect. Converse. Celebrate."
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp" />
 
         </LinearLayout>
     </ScrollView>

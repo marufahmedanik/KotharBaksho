@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Fast • Real-time • Bangladeshi"
+            android:text="দ্রুত • রিয়েল-টাইম • নিরাপদ"
             android:textColor="@color/text_secondary"
             android:textSize="11sp" />
 
