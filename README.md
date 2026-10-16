@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=flat&logo=android&logoColor=white" alt="Platform: Android" />
   <img src="https://img.shields.io/badge/Language-Java-ED8B00?style=flat&logo=java&logoColor=white" alt="Language: Java" />
   <img src="https://img.shields.io/badge/Backend-Firebase-FFCA28?style=flat&logo=firebase&logoColor=black" alt="Backend: Firebase" />
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat" alt="License: MIT" />
+  <img src="https://img.shields.io/badge/License-MIT%20OR%20Apache%202.0-blue.svg?style=flat" alt="License: MIT or Apache 2.0" />
 </p>
 
 ---
@@ -128,6 +128,8 @@ KotharBaksho/
 ├── build.gradle
 ├── settings.gradle
 ├── LICENSE
+├── LICENSE-MIT
+├── LICENSE-APACHE
 └── README.md
 ```
 
@@ -135,7 +137,12 @@ KotharBaksho/
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is dual-licensed under either:
+
+- **MIT License** ([LICENSE-MIT](LICENSE-MIT))
+- **Apache License, Version 2.0** ([LICENSE-APACHE](LICENSE-APACHE))
+
+at your option. See the [LICENSE](LICENSE) file for more details.
 
 ---
 
