@@ -57,7 +57,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_bold"
-                            android:text="@string/app_name"
+                            android:text="@string/app_name_bengali"
                             android:textColor="@color/primary"
                             android:textSize="20sp" />
 
@@ -66,7 +66,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="কথার বাক্স • Online"
+                            android:text="@string/tagline_bengali"
                             android:textColor="@color/accent_gold_dark"
                             android:textSize="11sp" />
                     </LinearLayout>
@@ -178,8 +178,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="No Conversations Found"
-                    android:textColor="@color/text_secondary"
+                    android:text="@string/tagline_bengali"
+                    android:textColor="@color/primary"
                     android:textSize="15sp" />
 
                 <TextView
@@ -187,8 +187,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Invite friends to join KotharBaksho!"
-                    android:textColor="@color/text_hint"
+                    android:text="@string/tagline_english"
+                    android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
 
             </LinearLayout>

@@ -221,14 +221,23 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="কথার বাক্স • KotharBaksho v1.0"
                         android:textColor="@color/emerald_primary"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/tagline_bengali"
+                        android:textColor="@color/accent_gold_dark"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Crafted with Bangladeshi Rickshaw Art &amp; Love"
+                        android:text="@string/tagline_english"
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp" />
                 </LinearLayout>

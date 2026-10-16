@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Users> usersArrayList;
     private ImageView imglogout, cumbut, setbut;
     private CircleImageView myProfileImg;
+    private TextView myStatus;
     private EditText searchEditText;
     private LinearLayout emptyStateLayout;
     private ValueEventListener usersListener;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setupPresence();
 
         myProfileImg = findViewById(R.id.myProfileImg);
+        myStatus = findViewById(R.id.myStatus);
         cumbut = findViewById(R.id.camBut);
         setbut = findViewById(R.id.settingBut);
         imglogout = findViewById(R.id.logoutimg);
@@ -116,6 +118,14 @@ public class MainActivity extends AppCompatActivity {
                             String profilePic = snapshot.child("profilepic").getValue(String.class);
                             if (profilePic != null && !profilePic.isEmpty()) {
                                 Picasso.get().load(profilePic).placeholder(R.drawable.photocamera).into(myProfileImg);
+                            }
+                            String status = snapshot.child("status").getValue(String.class);
+                            if (myStatus != null) {
+                                if (status != null && !status.trim().isEmpty()) {
+                                    myStatus.setText(status);
+                                } else {
+                                    myStatus.setText(R.string.tagline_bengali);
+                                }
                             }
                         }
                     }

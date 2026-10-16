@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">কথার বাক্স</string>
+    <string name="app_name_bengali">কথার বাক্স</string>
+    <string name="app_name_english">KotharBaksho</string>
+    <string name="app_name_full">কথার বাক্স • KotharBaksho</string>
+    <string name="tagline_bengali">তোমার কথা, তোমার মানুষ</string>
+    <string name="tagline_english">Every conversation has a place</string>
 </resources>
