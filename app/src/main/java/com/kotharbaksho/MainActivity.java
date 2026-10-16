@@ -223,6 +223,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
+        if (dialog.getWindow() != null) {
+            int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.85);
+            int maxWidth = (int) (340 * getResources().getDisplayMetrics().density);
+            if (width > maxWidth) width = maxWidth;
+            dialog.getWindow().setLayout(width, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
     }
 
     private void setupPresence() {

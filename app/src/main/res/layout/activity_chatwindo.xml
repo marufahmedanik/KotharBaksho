@@ -49,16 +49,17 @@
                     app:civ_border_width="1.5dp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="12dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_toEndOf="@id/profileimgg"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/recivername"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:fontFamily="@font/poppins_bold"
@@ -69,9 +70,11 @@
 
                     <TextView
                         android:id="@+id/reciverstatus"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:fontFamily="@font/poppins_regular"
+                        android:maxLines="1"
                         android:text="Offline"
                         android:textColor="@color/status_offline"
                         android:textSize="11sp" />

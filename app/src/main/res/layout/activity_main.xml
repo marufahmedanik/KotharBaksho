@@ -45,18 +45,22 @@
                         app:civ_border_width="1.5dp" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/myProfileImg"
+                        android:layout_toStartOf="@+id/headerActions"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="12dp"
+                        android:layout_marginEnd="8dp"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/appTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppins_bold"
+                            android:maxLines="1"
                             android:text="@string/app_name_bengali"
                             android:textColor="@color/primary"
                             android:textSize="20sp" />
@@ -65,13 +69,16 @@
                             android:id="@+id/myStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppins_regular"
+                            android:maxLines="1"
                             android:text="@string/tagline_bengali"
                             android:textColor="@color/accent_gold_dark"
                             android:textSize="11sp" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/headerActions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
