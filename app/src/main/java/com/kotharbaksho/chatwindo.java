@@ -32,6 +32,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,8 +56,12 @@ public class chatwindo extends AppCompatActivity {
     private ArrayList<msgModelclass> messagesArrayList;
     private messagesAdpter adapter;
 
-    private ValueEventListener chatListener, statusListener;
-    private DatabaseReference chatRef, statusRef;
+    private ValueEventListener chatListener, statusListener, receiverTypingListener;
+    private DatabaseReference chatRef, statusRef, receiverTypingRef;
+    private Handler typingHandler = new Handler(Looper.getMainLooper());
+    private Runnable stopTypingRunnable;
+    private String receiverOnlineStatus = "Offline";
+    private boolean isReceiverTyping = false;
     private static final int PICK_IMAGE_REQUEST = 25;
 
     @Override
@@ -116,6 +124,8 @@ public class chatwindo extends AppCompatActivity {
         });
 
         listenForReceiverStatus();
+        listenForReceiverTyping();
+        setupTypingEmitter();
         listenForMessages();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -142,23 +152,81 @@ public class chatwindo extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String status = snapshot.getValue(String.class);
-                    if ("Online".equalsIgnoreCase(status)) {
-                        reciverStatus.setText("● Online");
-                        reciverStatus.setTextColor(getResources().getColor(R.color.status_online));
-                    } else {
-                        reciverStatus.setText("Offline");
-                        reciverStatus.setTextColor(getResources().getColor(R.color.status_offline));
-                    }
+                    receiverOnlineStatus = status != null ? status : "Offline";
                 } else {
-                    reciverStatus.setText("Offline");
-                    reciverStatus.setTextColor(getResources().getColor(R.color.status_offline));
+                    receiverOnlineStatus = "Offline";
                 }
+                updateReceiverStatusDisplay();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         };
         statusRef.addValueEventListener(statusListener);
+    }
+
+    private void listenForReceiverTyping() {
+        receiverTypingRef = database.getReference().child("chats").child(senderRoom).child("typing").child(reciverUid);
+        receiverTypingListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Boolean isTyping = snapshot.getValue(Boolean.class);
+                isReceiverTyping = isTyping != null && isTyping;
+                updateReceiverStatusDisplay();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        };
+        receiverTypingRef.addValueEventListener(receiverTypingListener);
+    }
+
+    private void updateReceiverStatusDisplay() {
+        if (isReceiverTyping) {
+            reciverStatus.setText("typing...");
+            reciverStatus.setTextColor(getResources().getColor(R.color.gold));
+        } else if ("Online".equalsIgnoreCase(receiverOnlineStatus)) {
+            reciverStatus.setText("● Online");
+            reciverStatus.setTextColor(getResources().getColor(R.color.status_online));
+        } else {
+            reciverStatus.setText("Offline");
+            reciverStatus.setTextColor(getResources().getColor(R.color.status_offline));
+        }
+    }
+
+    private void setupTypingEmitter() {
+        stopTypingRunnable = new Runnable() {
+            @Override
+            public void run() {
+                setSenderTyping(false);
+            }
+        };
+
+        textMsg.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s != null && s.length() > 0) {
+                    setSenderTyping(true);
+                    typingHandler.removeCallbacks(stopTypingRunnable);
+                    typingHandler.postDelayed(stopTypingRunnable, 2000);
+                } else {
+                    setSenderTyping(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void setSenderTyping(boolean isTyping) {
+        if (senderUid != null && senderRoom != null) {
+            database.getReference().child("chats").child(senderRoom).child("typing").child(senderUid).setValue(isTyping);
+            database.getReference().child("chats").child(reciverRoom).child("typing").child(senderUid).setValue(isTyping);
+        }
     }
 
     private void listenForMessages() {
@@ -262,6 +330,7 @@ public class chatwindo extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        setSenderTyping(false);
         if (firebaseAuth.getUid() != null) {
             database.getReference().child("user").child(firebaseAuth.getUid()).child("onlineStatus").setValue("Offline");
         }
@@ -270,11 +339,15 @@ public class chatwindo extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        setSenderTyping(false);
         if (chatRef != null && chatListener != null) {
             chatRef.removeEventListener(chatListener);
         }
         if (statusRef != null && statusListener != null) {
             statusRef.removeEventListener(statusListener);
+        }
+        if (receiverTypingRef != null && receiverTypingListener != null) {
+            receiverTypingRef.removeEventListener(receiverTypingListener);
         }
     }
 }

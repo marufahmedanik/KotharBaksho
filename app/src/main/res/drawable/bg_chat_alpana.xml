@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="640dp"
+    android:viewportWidth="360"
+    android:viewportHeight="640">
+
+    <!-- Base Canvas Tint -->
+    <path
+        android:fillColor="#F3F6F4"
+        android:pathData="M0,0h360v640h-360z" />
+
+    <!-- Top Delicate Alpana Motif (Subtle 6% Opacity) -->
+    <group
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:translateX="18"
+        android:translateY="20">
+        <!-- Concentric Ornamental Circles -->
+        <path
+            android:strokeColor="#100B5D43"
+            android:strokeWidth="1.5"
+            android:pathData="M180,180 m-70,0 a70,70 0 1,0 140,0 a70,70 0 1,0 -140,0" />
+        <path
+            android:strokeColor="#0A0B5D43"
+            android:strokeWidth="1"
+            android:pathData="M180,180 m-95,0 a95,95 0 1,0 190,0 a95,95 0 1,0 -190,0" />
+
+        <!-- Center Lotus / Shapla Petals -->
+        <path
+            android:fillColor="#0D0B5D43"
+            android:pathData="M180,125 C165,150 165,175 180,195 C195,175 195,150 180,125 Z" />
+        <path
+            android:fillColor="#0B0B5D43"
+            android:pathData="M180,195 C155,185 140,165 130,140 C145,160 165,180 180,195 Z" />
+        <path
+            android:fillColor="#0B0B5D43"
+            android:pathData="M180,195 C205,185 220,165 230,140 C215,160 195,180 180,195 Z" />
+        <path
+            android:fillColor="#090B5D43"
+            android:pathData="M180,195 C140,200 120,185 110,165 C130,180 155,190 180,195 Z" />
+        <path
+            android:fillColor="#090B5D43"
+            android:pathData="M180,195 C220,200 240,185 250,165 C230,180 205,190 180,195 Z" />
+
+        <!-- Outer Alpana Droplets -->
+        <path
+            android:fillColor="#0F0B5D43"
+            android:pathData="M180,75 C176,82 176,88 180,92 C184,88 184,82 180,75 Z" />
+        <path
+            android:fillColor="#0F0B5D43"
+            android:pathData="M180,265 C176,272 176,278 180,282 C184,278 184,272 180,265 Z" />
+        <path
+            android:fillColor="#0F0B5D43"
+            android:pathData="M75,180 C82,176 88,176 92,180 C88,184 82,184 75,180 Z" />
+        <path
+            android:fillColor="#0F0B5D43"
+            android:pathData="M265,180 C272,176 278,176 282,180 C278,184 272,184 265,180 Z" />
+    </group>
+
+    <!-- Bottom Delicate Alpana Motif -->
+    <group
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:translateX="18"
+        android:translateY="360">
+        <path
+            android:strokeColor="#100B5D43"
+            android:strokeWidth="1.5"
+            android:pathData="M180,180 m-70,0 a70,70 0 1,0 140,0 a70,70 0 1,0 -140,0" />
+        <path
+            android:strokeColor="#0A0B5D43"
+            android:strokeWidth="1"
+            android:pathData="M180,180 m-95,0 a95,95 0 1,0 190,0 a95,95 0 1,0 -190,0" />
+
+        <!-- Center Lotus / Shapla Petals -->
+        <path
+            android:fillColor="#0D0B5D43"
+            android:pathData="M180,125 C165,150 165,175 180,195 C195,175 195,150 180,125 Z" />
+        <path
+            android:fillColor="#0B0B5D43"
+            android:pathData="M180,195 C155,185 140,165 130,140 C145,160 165,180 180,195 Z" />
+        <path
+            android:fillColor="#0B0B5D43"
+            android:pathData="M180,195 C205,185 220,165 230,140 C215,160 195,180 180,195 Z" />
+        <path
+            android:fillColor="#090B5D43"
+            android:pathData="M180,195 C140,200 120,185 110,165 C130,180 155,190 180,195 Z" />
+        <path
+            android:fillColor="#090B5D43"
+            android:pathData="M180,195 C220,200 240,185 250,165 C230,180 205,190 180,195 Z" />
+
+        <!-- Outer Droplets -->
+        <path
+            android:fillColor="#0F0B5D43"
+            android:pathData="M180,75 C176,82 176,88 180,92 C184,88 184,82 180,75 Z" />
+        <path
+            android:fillColor="#0F0B5D43"
+            android:pathData="M180,265 C176,272 176,278 180,282 C184,278 184,272 180,265 Z" />
+    </group>
+
+</vector>

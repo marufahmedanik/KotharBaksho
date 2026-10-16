@@ -41,8 +41,12 @@ public class UserAdpter extends RecyclerView.Adapter<UserAdpter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Users user = usersArrayList.get(position);
 
-        holder.username.setText(user.getUserName());
-        holder.userstatus.setText(user.getStatus() != null && !user.getStatus().isEmpty() ? user.getStatus() : "Hey! I'm using KotharBaksho");
+        String lastMsg = user.getLastMessage();
+        if (lastMsg != null && !lastMsg.trim().isEmpty()) {
+            holder.userstatus.setText(lastMsg);
+        } else {
+            holder.userstatus.setText(user.getStatus() != null && !user.getStatus().isEmpty() ? user.getStatus() : "Hey! I'm using KotharBaksho");
+        }
 
         if (user.getProfilepic() != null && !user.getProfilepic().isEmpty()) {
             Picasso.get().load(user.getProfilepic())
@@ -58,10 +62,14 @@ public class UserAdpter extends RecyclerView.Adapter<UserAdpter.ViewHolder> {
             holder.useronline.setText("● Online");
             holder.useronline.setTextColor(context.getResources().getColor(R.color.status_online));
             holder.onlineDotIndicator.setVisibility(View.VISIBLE);
+            holder.userimg.setBorderColor(context.getResources().getColor(R.color.status_online));
+            holder.userimg.setBorderWidth(4);
         } else {
             holder.useronline.setText("Offline");
             holder.useronline.setTextColor(context.getResources().getColor(R.color.status_offline));
             holder.onlineDotIndicator.setVisibility(View.GONE);
+            holder.userimg.setBorderColor(context.getResources().getColor(R.color.divider_line));
+            holder.userimg.setBorderWidth(2);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

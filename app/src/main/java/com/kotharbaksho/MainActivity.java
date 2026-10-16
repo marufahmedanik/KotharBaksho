@@ -1,6 +1,7 @@
 package com.kotharbaksho;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -106,6 +107,22 @@ public class MainActivity extends AppCompatActivity {
                 showLogoutDialog();
             }
         });
+
+        View fabNewChat = findViewById(R.id.fabNewChat);
+        if (fabNewChat != null) {
+            fabNewChat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (searchEditText != null) {
+                        searchEditText.requestFocus();
+                        android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if (imm != null) {
+                            imm.showSoftInput(searchEditText, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT);
+                        }
+                    }
+                }
+            });
+        }
     }
 
     private void loadCurrentUserData() {
