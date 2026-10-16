@@ -16,65 +16,80 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserAdpter extends RecyclerView.Adapter<UserAdpter.viewholder> {
-    Context mainActivity;
-    ArrayList<Users> usersArrayList;
-    public UserAdpter(MainActivity mainActivity, ArrayList<Users> usersArrayList) {
-        this.mainActivity=mainActivity;
-        this.usersArrayList=usersArrayList;
+public class UserAdpter extends RecyclerView.Adapter<UserAdpter.ViewHolder> {
+    private final Context context;
+    private ArrayList<Users> usersArrayList;
+
+    public UserAdpter(Context context, ArrayList<Users> usersArrayList) {
+        this.context = context;
+        this.usersArrayList = usersArrayList;
+    }
+
+    public void setFilterList(ArrayList<Users> filteredList) {
+        this.usersArrayList = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public UserAdpter.viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mainActivity).inflate(R.layout.user_item,parent,false);
-        return new viewholder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.user_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserAdpter.viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Users user = usersArrayList.get(position);
 
-        Users users = usersArrayList.get(position);
-        holder.username.setText(users.getUserName());
-        holder.userstatus.setText(users.getStatus());
-        Picasso.get().load(users.getProfilepic()).into(holder.userimg);
+        holder.username.setText(user.getUserName());
+        holder.userstatus.setText(user.getStatus() != null && !user.getStatus().isEmpty() ? user.getStatus() : "Hey! I'm using KotharBaksho");
 
-        String online = users.getOnlineStatus();
+        if (user.getProfilepic() != null && !user.getProfilepic().isEmpty()) {
+            Picasso.get().load(user.getProfilepic())
+                    .placeholder(R.drawable.photocamera)
+                    .error(R.drawable.photocamera)
+                    .into(holder.userimg);
+        } else {
+            holder.userimg.setImageResource(R.drawable.photocamera);
+        }
+
+        String online = user.getOnlineStatus();
         if ("Online".equalsIgnoreCase(online)) {
             holder.useronline.setText("● Online");
-            holder.useronline.setTextColor(android.graphics.Color.parseColor("#2E7D32"));
+            holder.useronline.setTextColor(context.getResources().getColor(R.color.status_online));
+            holder.onlineDotIndicator.setVisibility(View.VISIBLE);
         } else {
             holder.useronline.setText("Offline");
-            holder.useronline.setTextColor(android.graphics.Color.parseColor("#888888"));
+            holder.useronline.setTextColor(context.getResources().getColor(R.color.status_offline));
+            holder.onlineDotIndicator.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mainActivity, chatwindo.class);
-                intent.putExtra("nameeee",users.getUserName());
-                intent.putExtra("reciverImg",users.getProfilepic());
-                intent.putExtra("uid",users.getUserId());
-                mainActivity.startActivity(intent);
-
+            public void onClick(View v) {
+                Intent intent = new Intent(context, chatwindo.class);
+                intent.putExtra("nameeee", user.getUserName());
+                intent.putExtra("reciverImg", user.getProfilepic());
+                intent.putExtra("uid", user.getUserId());
+                context.startActivity(intent);
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
-        return usersArrayList.size();
+        return usersArrayList != null ? usersArrayList.size() : 0;
     }
 
-    public class viewholder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView userimg;
-        TextView username;
-        TextView userstatus;
-        TextView useronline;
-        public viewholder(@NonNull View itemView) {
+        View onlineDotIndicator;
+        TextView username, userstatus, useronline;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             userimg = itemView.findViewById(R.id.userimg);
+            onlineDotIndicator = itemView.findViewById(R.id.onlineDotIndicator);
             username = itemView.findViewById(R.id.username);
             userstatus = itemView.findViewById(R.id.userstatus);
             useronline = itemView.findViewById(R.id.user_online_indicator);

@@ -1,10 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <!-- Brand Emerald & Green -->
+    <color name="primary">#0B5D43</color>
+    <color name="emerald_primary">#0B5D43</color>
+    <color name="primary_dark">#064E3B</color>
+    <color name="emerald_dark">#064E3B</color>
+    <color name="primary_light">#10B981</color>
+    <color name="primary_container">#ECFDF5</color>
+    <color name="primary_variant">#047857</color>
+
+    <!-- Warm Gold & Amber (Inspired by Rickshaw Art / Logo) -->
+    <color name="gold">#F59E0B</color>
+    <color name="accent_gold">#F59E0B</color>
+    <color name="accent_gold_dark">#D97706</color>
+    <color name="accent_gold_light">#FEF3C7</color>
+
+    <!-- Ruby / Crimson -->
+    <color name="accent_crimson">#DC2626</color>
+    <color name="accent_crimson_light">#FEE2E2</color>
+
+    <!-- Turquoise / Cyan -->
+    <color name="accent_cyan">#06B6D4</color>
+
+    <!-- Neutral Backgrounds & Cards -->
+    <color name="bg_main">#F8FAF9</color>
+    <color name="bg_chat">#F1F5F3</color>
+    <color name="chat_background">#F1F5F3</color>
+    <color name="surface_card">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="surface_card_elevated">#F8FAFC</color>
+
+    <!-- Typography -->
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="text_hint">#94A3B8</color>
+    <color name="text_white">#FFFFFF</color>
+
+    <!-- Borders & Dividers -->
+    <color name="divider_line">#E2E8F0</color>
+    <color name="border_light">#CBD5E1</color>
+
+    <!-- Status -->
+    <color name="status_online">#10B981</color>
+    <color name="status_offline">#94A3B8</color>
+
+    <!-- Chat Bubbles -->
+    <color name="sender_bubble_bg">#0B5D43</color>
+    <color name="sender_bubble_text">#FFFFFF</color>
+    <color name="sender_bubble_time">#D1FAE5</color>
+    <color name="receiver_bubble_bg">#FFFFFF</color>
+    <color name="receiver_bubble_text">#0F172A</color>
+    <color name="receiver_bubble_time">#64748B</color>
+
+    <!-- Classic Fallbacks -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple_200">#0B5D43</color>
+    <color name="purple_500">#0B5D43</color>
+    <color name="purple_700">#064E3B</color>
+    <color name="teal_200">#F59E0B</color>
+    <color name="teal_700">#D97706</color>
 </resources>

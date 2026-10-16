@@ -1,21 +1,22 @@
 package com.kotharbaksho;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,195 +38,216 @@ import java.util.Date;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class chatwindo extends AppCompatActivity {
-    String reciverimg, reciverUid, reciverName, SenderUID;
-    CircleImageView profile;
-    TextView reciverNName, reciverstatus;
-    FirebaseDatabase database;
-    FirebaseAuth firebaseAuth;
-    public static String senderImg;
-    public static String reciverIImg;
-    CardView sendbtn, sendimgbtn;
-    EditText textmsg;
-    ImageView backbtn;
+    private String reciverImg, reciverUid, reciverName, senderUid;
+    private CircleImageView profile;
+    private TextView reciverNName, reciverStatus;
+    private FirebaseDatabase database;
+    private FirebaseAuth firebaseAuth;
+    private CardView sendBtn, sendImgBtn;
+    private EditText textMsg;
+    private ImageView backBtn;
 
-    String senderRoom, reciverRoom;
-    RecyclerView messageAdpter;
-    ArrayList<msgModelclass> messagesArrayList;
-    messagesAdpter mmessagesAdpter;
+    private String senderRoom, reciverRoom;
+    private RecyclerView messageRecyclerView;
+    private ArrayList<msgModelclass> messagesArrayList;
+    private messagesAdpter adapter;
+
+    private ValueEventListener chatListener, statusListener;
+    private DatabaseReference chatRef, statusRef;
+    private static final int PICK_IMAGE_REQUEST = 25;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatwindo);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+
         database = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
+        if (firebaseAuth.getCurrentUser() == null) {
+            finish();
+            return;
+        }
+
+        senderUid = firebaseAuth.getUid();
         reciverName = getIntent().getStringExtra("nameeee");
-        reciverimg = getIntent().getStringExtra("reciverImg");
+        reciverImg = getIntent().getStringExtra("reciverImg");
         reciverUid = getIntent().getStringExtra("uid");
+
+        if (reciverUid == null) {
+            Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        senderRoom = senderUid + reciverUid;
+        reciverRoom = reciverUid + senderUid;
 
         messagesArrayList = new ArrayList<>();
 
-        sendbtn = findViewById(R.id.sendbtnn);
-        sendimgbtn = findViewById(R.id.sendimgbtn);
-        textmsg = findViewById(R.id.textmsg);
+        sendBtn = findViewById(R.id.sendbtnn);
+        sendImgBtn = findViewById(R.id.sendimgbtn);
+        textMsg = findViewById(R.id.textmsg);
         reciverNName = findViewById(R.id.recivername);
-        reciverstatus = findViewById(R.id.reciverstatus);
+        reciverStatus = findViewById(R.id.reciverstatus);
         profile = findViewById(R.id.profileimgg);
-        messageAdpter = findViewById(R.id.msgadpter);
-        backbtn = findViewById(R.id.back_btn);
+        messageRecyclerView = findViewById(R.id.msgadpter);
+        backBtn = findViewById(R.id.back_btn);
 
-        SenderUID = firebaseAuth.getUid();
-        senderRoom = SenderUID + reciverUid;
-        reciverRoom = reciverUid + SenderUID;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        messageRecyclerView.setLayoutManager(layoutManager);
+        adapter = new messagesAdpter(chatwindo.this, messagesArrayList, senderRoom, reciverRoom);
+        messageRecyclerView.setAdapter(adapter);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        messageAdpter.setLayoutManager(linearLayoutManager);
-        mmessagesAdpter = new messagesAdpter(chatwindo.this, messagesArrayList, senderRoom, reciverRoom);
-        messageAdpter.setAdapter(mmessagesAdpter);
+        reciverNName.setText(reciverName != null ? reciverName : "User");
 
-        Picasso.get().load(reciverimg).into(profile);
-        reciverNName.setText("" + reciverName);
+        if (reciverImg != null && !reciverImg.isEmpty()) {
+            Picasso.get().load(reciverImg).placeholder(R.drawable.photocamera).into(profile);
+        } else {
+            profile.setImageResource(R.drawable.photocamera);
+        }
 
-        // Listen for receiver's live online status
-        database.getReference().child("user").child(reciverUid).child("onlineStatus").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String status = snapshot.getValue(String.class);
-                    if ("Online".equalsIgnoreCase(status)) {
-                        reciverstatus.setText("● Online");
-                        reciverstatus.setTextColor(android.graphics.Color.parseColor("#2E7D32"));
-                    } else {
-                        reciverstatus.setText("Offline");
-                        reciverstatus.setTextColor(android.graphics.Color.parseColor("#555555"));
-                    }
-                } else {
-                    reciverstatus.setText("Offline");
-                    reciverstatus.setTextColor(android.graphics.Color.parseColor("#555555"));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
-
-        backbtn.setOnClickListener(new View.OnClickListener() {
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        DatabaseReference reference = database.getReference().child("user").child(firebaseAuth.getUid());
-        DatabaseReference chatreference = database.getReference().child("chats").child(senderRoom).child("messages");
+        listenForReceiverStatus();
+        listenForMessages();
 
-        chatreference.addValueEventListener(new ValueEventListener() {
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendTextMessage();
+            }
+        });
+
+        sendImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "Share Image"), PICK_IMAGE_REQUEST);
+            }
+        });
+    }
+
+    private void listenForReceiverStatus() {
+        statusRef = database.getReference().child("user").child(reciverUid).child("onlineStatus");
+        statusListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String status = snapshot.getValue(String.class);
+                    if ("Online".equalsIgnoreCase(status)) {
+                        reciverStatus.setText("● Online");
+                        reciverStatus.setTextColor(getResources().getColor(R.color.status_online));
+                    } else {
+                        reciverStatus.setText("Offline");
+                        reciverStatus.setTextColor(getResources().getColor(R.color.status_offline));
+                    }
+                } else {
+                    reciverStatus.setText("Offline");
+                    reciverStatus.setTextColor(getResources().getColor(R.color.status_offline));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        };
+        statusRef.addValueEventListener(statusListener);
+    }
+
+    private void listenForMessages() {
+        chatRef = database.getReference().child("chats").child(senderRoom).child("messages");
+        chatListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messagesArrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    msgModelclass messages = dataSnapshot.getValue(msgModelclass.class);
-                    if (messages != null) {
-                        if (messages.getMessageId() == null) {
-                            messages.setMessageId(dataSnapshot.getKey());
+                    msgModelclass message = dataSnapshot.getValue(msgModelclass.class);
+                    if (message != null) {
+                        if (message.getMessageId() == null) {
+                            message.setMessageId(dataSnapshot.getKey());
                         }
-                        messagesArrayList.add(messages);
+                        messagesArrayList.add(message);
                     }
                 }
-                mmessagesAdpter.notifyDataSetChanged();
-                if (messagesArrayList.size() > 0) {
-                    messageAdpter.smoothScrollToPosition(messagesArrayList.size() - 1);
+                adapter.notifyDataSetChanged();
+                if (!messagesArrayList.isEmpty()) {
+                    messageRecyclerView.smoothScrollToPosition(messagesArrayList.size() - 1);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
-        });
+        };
+        chatRef.addValueEventListener(chatListener);
+    }
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("profilepic").getValue() != null) {
-                    senderImg = snapshot.child("profilepic").getValue().toString();
-                }
-                reciverIImg = reciverimg;
-            }
+    private void sendTextMessage() {
+        String msg = textMsg.getText().toString().trim();
+        if (TextUtils.isEmpty(msg)) {
+            return;
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
+        textMsg.setText("");
+        Date date = new Date();
+        DatabaseReference pushRef = database.getReference().child("chats").child(senderRoom).child("messages").push();
+        String messageId = pushRef.getKey();
 
-        // Send text message
-        sendbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String message = textmsg.getText().toString().trim();
-                if (message.isEmpty()) {
-                    Toast.makeText(chatwindo.this, "Enter The Message First", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                textmsg.setText("");
-                Date date = new Date();
-                String messageId = database.getReference().child("chats").child(senderRoom).child("messages").push().getKey();
-                msgModelclass messagess = new msgModelclass(message, SenderUID, date.getTime(), messageId, "text");
+        msgModelclass messageObj = new msgModelclass(msg, senderUid, date.getTime(), messageId, "text");
 
-                database.getReference().child("chats").child(senderRoom).child("messages").child(messageId).setValue(messagess);
-                database.getReference().child("chats").child(reciverRoom).child("messages").child(messageId).setValue(messagess);
-            }
-        });
-
-        // Send image message
-        sendimgbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), 25);
-            }
-        });
+        if (messageId != null) {
+            database.getReference().child("chats").child(senderRoom).child("messages").child(messageId).setValue(messageObj);
+            database.getReference().child("chats").child(reciverRoom).child("messages").child(messageId).setValue(messageObj);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 25 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Sending image...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
+
+            ProgressDialog dialog = new ProgressDialog(this);
+            dialog.setMessage("Sending photo...");
+            dialog.setCancelable(false);
+            dialog.show();
 
             Date date = new Date();
-            String messageId = database.getReference().child("chats").child(senderRoom).child("messages").push().getKey();
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference()
-                    .child("chats").child("images").child(messageId + ".jpg");
+            DatabaseReference pushRef = database.getReference().child("chats").child(senderRoom).child("messages").push();
+            String messageId = pushRef.getKey();
 
-            storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                progressDialog.dismiss();
-                                String downloadUrl = uri.toString();
-                                msgModelclass messagess = new msgModelclass(downloadUrl, SenderUID, date.getTime(), messageId, "image");
-                                database.getReference().child("chats").child(senderRoom).child("messages").child(messageId).setValue(messagess);
-                                database.getReference().child("chats").child(reciverRoom).child("messages").child(messageId).setValue(messagess);
-                            }
-                        });
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(chatwindo.this, "Failed to send image", Toast.LENGTH_SHORT).show();
+            if (messageId != null) {
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference()
+                        .child("chats").child("images").child(messageId + ".jpg");
+
+                storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    dialog.dismiss();
+                                    msgModelclass messageObj = new msgModelclass(uri.toString(), senderUid, date.getTime(), messageId, "image");
+                                    database.getReference().child("chats").child(senderRoom).child("messages").child(messageId).setValue(messageObj);
+                                    database.getReference().child("chats").child(reciverRoom).child("messages").child(messageId).setValue(messageObj);
+                                }
+                            });
+                        } else {
+                            dialog.dismiss();
+                            Toast.makeText(chatwindo.this, "Failed to upload photo", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                dialog.dismiss();
+            }
         }
     }
 
@@ -242,6 +264,17 @@ public class chatwindo extends AppCompatActivity {
         super.onPause();
         if (firebaseAuth.getUid() != null) {
             database.getReference().child("user").child(firebaseAuth.getUid()).child("onlineStatus").setValue("Offline");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (chatRef != null && chatListener != null) {
+            chatRef.removeEventListener(chatListener);
+        }
+        if (statusRef != null && statusListener != null) {
+            statusRef.removeEventListener(statusListener);
         }
     }
 }

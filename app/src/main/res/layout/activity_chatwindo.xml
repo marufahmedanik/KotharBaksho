@@ -1,148 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/chatback"
+    android:background="@color/bg_chat"
     tools:context=".chatwindo">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#D7AD8D"
-        android:orientation="vertical"
-        android:id="@+id/ll1"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileimgg"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
-            android:src="@drawable/photocamera"
-            app:civ_border_color="@color/white"
-            android:layout_marginTop="@dimen/_7sdp"
-            app:civ_border_width="@dimen/_2sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.226" />
-
-        <TextView
-            android:id="@+id/recivername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bordermain"
-            android:text="Anik"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/_15sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_2sdp"/>
-
-        <TextView
-            android:id="@+id/reciverstatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Offline"
-            android:textColor="#333333"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_6sdp"/>
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/back_btn"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:src="@drawable/ic_back_arrow"
-        android:layout_margin="@dimen/_10sdp"
-        android:padding="@dimen/_5sdp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:elevation="5dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/msgadpter"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/ll2"
-        android:layout_below="@+id/ll1"
-        android:layout_marginTop="7dp"
-        android:padding="@dimen/_10sdp" />
-
-    <LinearLayout
-        android:id="@+id/ll2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_45sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/_2sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginEnd="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp"
-        android:orientation="horizontal">
-
+        <!-- Sleek Modern Chat Header Bar -->
         <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_25sdp">
+            android:id="@+id/chatToolbarCard"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_alignParentTop="true"
+            app:cardBackgroundColor="@color/surface_card"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="3dp">
 
-            <EditText
-                android:id="@+id/textmsg"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_gravity="center"
-                android:background="@null"
-                android:fontFamily="@font/poppins_regular"
-                android:hint="Type The Messages..."
-                android:paddingStart="13.00dp" />
+                android:paddingStart="8dp"
+                android:paddingEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_back_arrow"
+                    app:tint="@color/primary" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileimgg"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/back_btn"
+                    android:src="@drawable/photocamera"
+                    app:civ_border_color="@color/accent_gold"
+                    app:civ_border_width="1.5dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_toEndOf="@id/profileimgg"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/recivername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppins_bold"
+                        android:maxLines="1"
+                        android:text="Recipient Name"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/reciverstatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Offline"
+                        android:textColor="@color/status_offline"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/sendimgbtn"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_25sdp">
+        <!-- Message List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/msgadpter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottomInputBar"
+            android:layout_below="@id/chatToolbarCard"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="12dp" />
 
-            <ImageView
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
-                android:layout_gravity="center"
-                android:src="@drawable/imageadd" />
+        <!-- Bottom Input Bar -->
+        <LinearLayout
+            android:id="@+id/bottomInputBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp">
 
-        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/sendbtnn"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_25sdp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="12dp">
 
-            <ImageView
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:layout_gravity="center"
-                android:src="@drawable/sendbut" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/sendimgbtn"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:cardBackgroundColor="@color/primary_container"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="0dp">
 
-        </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_image_attach"
+                            app:tint="@color/primary" />
+                    </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
+                    <EditText
+                        android:id="@+id/textmsg"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="Type a message..."
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:maxLines="4"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="14sp" />
 
-</RelativeLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/sendbtnn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                app:cardBackgroundColor="@color/primary"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="3dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_send_vector" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
