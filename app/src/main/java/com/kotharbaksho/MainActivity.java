@@ -241,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
         if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
             int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.85);
             int maxWidth = (int) (340 * getResources().getDisplayMetrics().density);
             if (width > maxWidth) width = maxWidth;
