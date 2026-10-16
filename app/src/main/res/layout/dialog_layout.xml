@@ -1,86 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shapedialog"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingHorizontal="24dp"
-    android:paddingTop="28dp"
-    android:paddingBottom="24dp">
+    android:layout_gravity="center"
+    app:cardBackgroundColor="@color/surface_card"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="10dp"
+    app:cardUseCompatPadding="true">
 
-    <!-- Hero Badge with Double Ring Elevation -->
-    <FrameLayout
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:background="@drawable/bg_dialog_icon_ring">
-
-        <ImageView
-            android:id="@+id/logoutdia"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_logout_vector"
-            app:tint="@color/accent_crimson" />
-
-    </FrameLayout>
-
-    <!-- Dialog Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Log Out?"
-        android:textColor="@color/text_primary"
-        android:textSize="20sp" />
-
-    <!-- Reassuring Message Body -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_regular"
-        android:gravity="center"
-        android:lineSpacingExtra="3dp"
-        android:text="Are you sure you want to sign out? Your chats and messages will be safely synced and waiting when you return."
-        android:textColor="@color/text_secondary"
-        android:textSize="13sp" />
-
-    <!-- Action Buttons Row -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="22dp"
+        android:paddingTop="26dp"
+        android:paddingBottom="24dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/nobnt"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_btn_dialog_cancel"
+        <!-- Floating Icon Squircle (Exact Floating Effect as App Logo Card) -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            app:cardBackgroundColor="#FEE2E2"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+
+            <ImageView
+                android:id="@+id/logoutdia"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_logout_vector"
+                app:tint="@color/accent_crimson" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Dialog Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="Cancel"
-            android:textAllCaps="false"
+            android:text="Log Out?"
             android:textColor="@color/text_primary"
-            android:textSize="14sp" />
+            android:textSize="20sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/yesbnt"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_btn_dialog_logout"
+        <!-- Smart Cloud Synced Pill -->
+        <TextView
+            android:id="@+id/tvLogoutAccountInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_pill_synced"
             android:fontFamily="@font/poppins_bold"
-            android:text="Log Out"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:text="🔒 Chats Safely Synced"
+            android:textColor="@color/primary"
+            android:textSize="11sp" />
+
+        <!-- Smart Reassuring Message Body -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:text="Your conversations are securely saved. Sign back in anytime to pick up right where you left off."
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+
+        <!-- Action Buttons Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/nobnt"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_dialog_cancel"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/yesbnt"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_dialog_logout"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Log Out"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>
