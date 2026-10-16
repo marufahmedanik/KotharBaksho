@@ -178,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="@string/tagline_bengali"
+                    android:text="No Conversations Yet"
                     android:textColor="@color/primary"
                     android:textSize="15sp" />
 

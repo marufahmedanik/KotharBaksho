@@ -42,39 +42,21 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:fontFamily="@font/poppins_bold"
-                android:text="@string/app_name_bengali"
-                android:textColor="@color/primary"
-                android:textSize="26sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/app_name_english"
-                android:textColor="@color/accent_gold_dark"
-                android:textSize="13sp"
-                android:letterSpacing="0.08" />
+                android:textColor="@color/primary"
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/tagline_bengali"
-                android:textColor="@color/text_primary"
-                android:textSize="13sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/tagline_english"
                 android:textColor="@color/text_secondary"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 

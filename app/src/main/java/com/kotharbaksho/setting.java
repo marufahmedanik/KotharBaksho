@@ -168,7 +168,7 @@ public class setting extends AppCompatActivity {
         reference.updateChildren(updates).addOnCompleteListener(task -> {
             setLoading(false);
             if (task.isSuccessful()) {
-                Toast.makeText(setting.this, "Profile updated successfully! • প্রোফাইল সংরক্ষিত হয়েছে", Toast.LENGTH_SHORT).show();
+                Toast.makeText(setting.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
                 Toast.makeText(setting.this, "Failed to save profile changes", Toast.LENGTH_SHORT).show();

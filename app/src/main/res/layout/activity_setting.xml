@@ -50,9 +50,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="কথার বাক্স প্রোফাইল"
+                android:text="@string/app_name_english"
                 android:textColor="@color/gold"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -130,7 +130,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Display Name • নাম"
+                        android:text="Display Name"
                         android:textColor="@color/emerald_primary"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -153,7 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="About • স্ট্যাটাস"
+                        android:text="About"
                         android:textColor="@color/emerald_primary"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -176,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Account Email • ইমেইল"
+                        android:text="Account Email"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -199,7 +199,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- App Branding & Cultural Info Card -->
+            <!-- App Branding Info Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -219,7 +219,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="কথার বাক্স • KotharBaksho v1.0"
+                        android:text="KotharBaksho v1.0"
                         android:textColor="@color/emerald_primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -228,18 +228,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="@string/tagline_bengali"
-                        android:textColor="@color/accent_gold_dark"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
                         android:text="@string/tagline_english"
                         android:textColor="@color/text_secondary"
-                        android:textSize="11sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -261,7 +252,7 @@
                 android:background="@drawable/bg_btn_primary"
                 android:elevation="3dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Save Changes • সংরক্ষণ করুন"
+                android:text="Save Changes"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="15sp"
