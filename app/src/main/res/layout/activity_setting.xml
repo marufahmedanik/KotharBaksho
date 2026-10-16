@@ -171,12 +171,12 @@
                         android:textColorHint="@color/text_hint"
                         android:textSize="14sp" />
 
-                    <!-- Email Field (Read Only) -->
+                    <!-- Account / Phone / Email (Read Only) -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Account Email"
+                        android:text="Phone / Email"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -189,8 +189,8 @@
                         android:background="@drawable/bg_input_field"
                         android:enabled="false"
                         android:focusable="false"
-                        android:hint="user@email.com"
-                        android:inputType="textEmailAddress"
+                        android:hint="Phone / Email"
+                        android:inputType="text"
                         android:paddingHorizontal="14dp"
                         android:textColor="@color/text_secondary"
                         android:textColorHint="@color/text_hint"

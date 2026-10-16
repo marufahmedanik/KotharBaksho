@@ -87,9 +87,11 @@ public class setting extends AppCompatActivity {
 
                     if (name != null) setname.setText(name);
                     if (status != null) setstatus.setText(status);
-                    if (email != null) {
+                    if (email != null && !email.trim().isEmpty()) {
                         setemail.setText(email);
-                    } else if (auth.getCurrentUser() != null) {
+                    } else if (auth.getCurrentUser() != null && auth.getCurrentUser().getPhoneNumber() != null && !auth.getCurrentUser().getPhoneNumber().isEmpty()) {
+                        setemail.setText(auth.getCurrentUser().getPhoneNumber());
+                    } else if (auth.getCurrentUser() != null && auth.getCurrentUser().getEmail() != null) {
                         setemail.setText(auth.getCurrentUser().getEmail());
                     }
 

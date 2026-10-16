@@ -12,10 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:paddingVertical="16dp">
+        android:paddingVertical="20dp">
 
+        <!-- Top Brand Header -->
         <LinearLayout
-            android:id="@+id/header_layout"
+            android:id="@+id/brandHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -26,13 +27,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="5dp">
+                app:cardElevation="4dp">
 
                 <ImageView
-                    android:id="@+id/imageView2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -40,17 +40,15 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/app_name_english"
                 android:textColor="@color/primary"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -61,123 +59,166 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/form_layout"
+        <!-- WhatsApp-style Phone Verification Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/phoneCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:orientation="vertical"
+            app:cardBackgroundColor="@color/surface_card"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_layout">
+            app:layout_constraintTop_toBottomOf="@id/brandHeader">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-                android:text="EMAIL"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:letterSpacing="0.05" />
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <EditText
-                android:id="@+id/editTexLogEmail"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/bg_input_field"
-                android:fontFamily="@font/poppins_regular"
-                android:hint="name@example.com"
-                android:inputType="textEmailAddress"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_hint"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/poppins_bold"
-                android:text="PASSWORD"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:letterSpacing="0.05" />
-
-            <EditText
-                android:id="@+id/editTextLogPassword"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/bg_input_field"
-                android:fontFamily="@font/poppins_regular"
-                android:hint="••••••••"
-                android:inputType="textPassword"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_hint"
-                android:textSize="14sp" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_marginTop="28dp">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/logbutton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_btn_primary"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="Log In"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:text="Verify your phone number"
+                    android:textColor="@color/text_primary"
                     android:textSize="16sp" />
 
-                <ProgressBar
-                    android:id="@+id/loginProgressBar"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_gravity="center"
-                    android:indeterminateTint="@color/white"
-                    android:visibility="gone" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:lineSpacingExtra="2dp"
+                    android:text="KotharBaksho will send an SMS with a 6-digit verification code to confirm your number."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
 
-            </FrameLayout>
+                <!-- Country Selector Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
-        </LinearLayout>
+                    <!-- Country Code Box -->
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="52dp"
+                        android:background="@drawable/bg_country_box"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="10dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🇧🇩"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/etCountryCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:background="@null"
+                            android:fontFamily="@font/poppins_bold"
+                            android:inputType="phone"
+                            android:maxLength="5"
+                            android:text="+880"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <!-- Phone Number Input -->
+                    <EditText
+                        android:id="@+id/etPhoneNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_input_field"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="01712-345678"
+                        android:inputType="phone"
+                        android:maxLength="15"
+                        android:paddingHorizontal="14dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Carrier SMS charges may apply."
+                    android:textColor="@color/text_hint"
+                    android:textSize="11sp" />
+
+                <!-- Action Button -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="22dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnSendOtp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_btn_primary"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Next"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <ProgressBar
+                        android:id="@+id/loginProgressBar"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/white"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Alternative: Email Login Option -->
         <LinearLayout
-            android:id="@+id/signup_row"
+            android:id="@+id/altLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/form_layout"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toBottomOf="@id/phoneCard">
 
             <TextView
-                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Need an account?"
+                android:text="Prefer email? "
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/logsignup"
+                android:id="@+id/tvEmailLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Sign Up"
+                android:padding="6dp"
+                android:text="Sign in with Email"
                 android:textColor="@color/primary"
                 android:textSize="13sp" />
 

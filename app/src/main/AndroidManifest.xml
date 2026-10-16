@@ -31,6 +31,23 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".OtpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ProfileSetupActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".EmailLoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".registration"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -38,6 +55,7 @@
         <activity
             android:name=".login"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
 
         <activity
