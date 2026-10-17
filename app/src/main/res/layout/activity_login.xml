@@ -119,15 +119,12 @@
                             android:text="🇧🇩"
                             android:textSize="18sp" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/etCountryCode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
-                            android:background="@null"
                             android:fontFamily="@font/poppins_bold"
-                            android:inputType="phone"
-                            android:maxLength="5"
                             android:text="+880"
                             android:textColor="@color/primary"
                             android:textSize="14sp" />
@@ -143,7 +140,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_input_field"
                         android:fontFamily="@font/poppins_regular"
-                        android:hint="01712-345678"
+                        android:hint="1712345678"
                         android:inputType="phone"
                         android:maxLength="15"
                         android:paddingHorizontal="14dp"

@@ -2,7 +2,9 @@ package com.kotharbaksho;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -33,7 +35,8 @@ public class login extends AppCompatActivity {
 
     public static PhoneAuthProvider.ForceResendingToken resendToken;
 
-    private EditText etCountryCode, etPhoneNumber;
+    private TextView etCountryCode;
+    private EditText etPhoneNumber;
     private AppCompatButton btnSendOtp;
     private ProgressBar loginProgressBar;
     private TextView tvEmailLogin;
@@ -51,6 +54,24 @@ public class login extends AppCompatActivity {
         btnSendOtp = findViewById(R.id.btnSendOtp);
         loginProgressBar = findViewById(R.id.loginProgressBar);
         tvEmailLogin = findViewById(R.id.tvEmailLogin);
+
+        // Auto-remove leading 0 in real time since country code (+880) already includes it
+        etPhoneNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString();
+                if (input.startsWith("0")) {
+                    etPhoneNumber.setText(input.replaceFirst("^0+", ""));
+                    etPhoneNumber.setSelection(etPhoneNumber.getText().length());
+                }
+            }
+        });
 
         btnSendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,9 +93,7 @@ public class login extends AppCompatActivity {
         String number = etPhoneNumber.getText().toString().trim();
 
         if (TextUtils.isEmpty(code)) {
-            etCountryCode.setError("Required");
-            etCountryCode.requestFocus();
-            return;
+            code = "+880";
         }
 
         if (TextUtils.isEmpty(number)) {
@@ -85,9 +104,7 @@ public class login extends AppCompatActivity {
 
         // Clean up common input formats (e.g. 01712345678 -> 1712345678 when code is +880)
         String cleanNumber = number.replaceAll("[\\s\\-\\(\\)]", "");
-        if (cleanNumber.startsWith("0")) {
-            cleanNumber = cleanNumber.substring(1);
-        }
+        cleanNumber = cleanNumber.replaceFirst("^0+", "");
 
         if (cleanNumber.length() < 7) {
             etPhoneNumber.setError("Please enter a valid phone number");

@@ -41,6 +41,8 @@ public class UserAdpter extends RecyclerView.Adapter<UserAdpter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Users user = usersArrayList.get(position);
 
+        holder.username.setText(user.getUserName() != null ? user.getUserName() : "User");
+
         String lastMsg = user.getLastMessage();
         if (lastMsg != null && !lastMsg.trim().isEmpty()) {
             holder.userstatus.setText(lastMsg);

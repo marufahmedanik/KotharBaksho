@@ -159,7 +159,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_input_field"
                         android:fontFamily="@font/poppins_regular"
-                        android:hint="01712-345678"
+                        android:hint="1712345678"
                         android:inputType="phone"
                         android:maxLength="15"
                         android:paddingStart="12dp"

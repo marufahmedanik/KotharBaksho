@@ -8,6 +8,7 @@
     <color name="primary_light">#10B981</color>
     <color name="primary_container">#ECFDF5</color>
     <color name="primary_variant">#047857</color>
+    <color name="ic_launcher_background">#046E38</color>
 
     <!-- Warm Gold & Amber (Inspired by Rickshaw Art / Logo) -->
     <color name="gold">#F59E0B</color>
