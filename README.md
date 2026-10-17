@@ -18,6 +18,17 @@
 
 ---
 
+## 📥 Direct APK Download
+
+Download the latest pre-compiled ready-to-install Android APK directly:
+
+[![Download APK](https://img.shields.io/badge/Download-APK%20(v1.0)-00A884?style=for-the-badge&logo=android&logoColor=white)](apk/KotharBaksho-v1.0-debug.apk?raw=true)
+
+- **File**: [`apk/KotharBaksho-v1.0-debug.apk`](apk/KotharBaksho-v1.0-debug.apk) (15.7 MB)
+- **Target**: Android 7.0+ (API 24+)
+
+---
+
 ## 📖 About
 
 **KotharBaksho (কথারবাক্স)** is a modern, lightweight, real-time messaging Android application designed for seamless communication. Infused with Bangladeshi cultural touches, vibrant Rickshaw Art inspired palettes, and clean floating card aesthetics, it delivers a secure and responsive chat experience.
